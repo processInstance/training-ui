@@ -1,19 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import getters from './getters'
-import app from './modules/app'
-import settings from './modules/settings'
-import user from './modules/user'
+
+import d2admin from './modules/d2admin'
 
 Vue.use(Vuex)
 
-const store = new Vuex.Store({
+export default new Vuex.Store({
   modules: {
-    app,
-    settings,
-    user
-  },
-  getters
+    d2admin
+  }
 })
-
-export default store
