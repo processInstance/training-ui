@@ -37,7 +37,8 @@ export const menuAside = supplementPath([
       { path: '/page1', title: '页面 1' },
       { path: '/page2', title: '页面 2' },
       { path: '/page3', title: '页面 3' },
-      { path: '/crudUser', title: '用户管理2' }
+      { path: '/crudUser', title: '用户管理2' },
+      { path: '/crudGroup', title: '组织管理' }
     ]
   }
 ])

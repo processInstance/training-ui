@@ -2,7 +2,7 @@ import Vue from 'vue'
 // import d2Crud from '@d2-project/d2-crud'
 import d2CrudX from 'd2-crud-x'
 import { d2CrudPlus } from 'd2-crud-plus'
-import { D2pAreaSelector, D2pFileUploader, D2pIconSelector, D2pTreeSelector, D2pFullEditor, D2pUploader, D2pDemoExtend } from 'd2p-extends' // 源码方式引入，上传组件支持懒加载
+import { D2pAreaSelector, D2pFileUploader, D2pIconSelector, D2pFullEditor, D2pUploader, D2pDemoExtend } from 'd2p-extends' // 源码方式引入，上传组件支持懒加载
 // http请求
 import { request } from '@/api/service'
 
@@ -70,6 +70,10 @@ Vue.use(d2CrudPlus, {
         edit: {
           type: 'primary'
         }
+      },
+      pagination: {
+        //  pageSizes: [10, 20],
+        pageSize: 10
       }
     }
   },
@@ -77,7 +81,7 @@ Vue.use(d2CrudPlus, {
 })
 
 // 安装扩展插件
-Vue.use(D2pTreeSelector)
+
 Vue.use(D2pAreaSelector)
 Vue.use(D2pIconSelector)
 Vue.use(D2pFullEditor, {

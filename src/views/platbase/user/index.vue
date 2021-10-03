@@ -4,10 +4,6 @@
   v-bind:api="api"
 
 >
-  <template v-slot:header>
-
-    <el-button size="small" type="primary" @click="batchDel"><i class="el-icon-plus"/> 批量删除</el-button>
-  </template>
 
 </pc-base>
 </template>

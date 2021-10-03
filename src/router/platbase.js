@@ -8,6 +8,14 @@ export const platbaseRoutes = [
       auth: true
     },
     component: _import('platbase/user')
+  },
+  {
+    path: 'crudGroup',
+    name: 'crudGroup',
+    meta: {
+      auth: true
+    },
+    component: _import('platbase/group')
   }
 
 ]
