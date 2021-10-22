@@ -1,5 +1,5 @@
 <template>
-  <el-container style="height: 100%;">
+  <el-container style="height: 100%;background-color: white">
     <el-aside>
 
         <div>
@@ -13,6 +13,7 @@
             :props="defaultProps"
             :load="loadNode"
             node-key="id"
+            @node-click="treeNodeClick"
             lazy
             :filter-node-method="filterNode"
             :default-expand-all="isExpandAll"
@@ -39,6 +40,9 @@
               <slot name="header"></slot>
               <crud-toolbar v-bind="_crudToolbarProps" v-on="_crudToolbarListeners"/>
             </div>
+            <template slot="orderNumFormSlot" slot-scope="scope">
+             <el-input ref="slotExampleFormRef" :disabled="scope.mode==='view'" v-model.number="scope.form['orderNum']" ></el-input>
+            </template>
           </d2-crud-x>
         </crud-container>
 
@@ -99,9 +103,6 @@ export default {
     treeRequest (nodeId) {
       return this.api.getTree({ nodeId })
     },
-    treeSearchRequest (nodeName) {
-      return this.api.treeSearch({ nodeName })
-    },
     filterNode (value, data) {
       if (!value) return true
       return data.name.indexOf(value) !== -1
@@ -125,8 +126,16 @@ export default {
       return this.api.getObj(row.id).then(res => {
         return res.data
       })
+    },
+    treeNodeClick (data, node, compoent) {
+      // 重置查询条件
+      this.$refs.search.$refs.searchForm.resetFields()
+      // 重置页码
+      this.doPageTurn(1)
+      // 查询条件
+      this.crud.searchOptions.form = { parentId: data.id }
+      this.doRefresh({ from: 'treeNodeClick' })
     }
-
   },
   watch: {
     filterText (val) {

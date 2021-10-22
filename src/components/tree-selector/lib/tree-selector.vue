@@ -296,6 +296,7 @@ export default {
       if (this.dispatch) {
         this.dispatch('ElFormItem', 'el.form.blur')
       }
+      // this.$emit('input', values) 原生代码里，这里传的是values
       this.$emit('input', nodes)
     },
     itemClosed (item) {

@@ -1,4 +1,4 @@
-import { request } from '@/api/service' // 改成这个请求真实后端
+import { request } from '@/api/service'
 const baseUrl = '/platbase/group'
 export function page (query) {
   return request({
@@ -31,7 +31,6 @@ export function delObj (id) {
 }
 
 export function putObj (id, obj) {
-  debugger
   return request({
     url: baseUrl + '/' + id,
     method: 'put',

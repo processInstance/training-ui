@@ -32,8 +32,8 @@ export default {
       console.log('batchDel')
     },
     addObjPrehandle: function (obj) {
-      obj.parent = obj.parent[0]
-      addObj(obj)
+      if (obj.parent) { obj.parent = obj.parent[0] }
+      return addObj(obj)
     }
   }
 }

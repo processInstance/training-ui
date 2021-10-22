@@ -53,7 +53,7 @@ export const crudOptions = (vm) => {
       {
         title: '名称',
         key: 'name',
-        sortable: 'custom',
+        sortable: 'custom', // 是否支持排序，如果传入'custom'，则为服务端排序。如果传入其他字符串，则以该字符串作为排序字段名
         minWidth: 200,
         form: {
           order: 1,
@@ -67,14 +67,14 @@ export const crudOptions = (vm) => {
           }
         },
         search: {
-          order: 1 // 查询字段排序，数字越小越靠前
+          order: 1 // 查询框字段排序，数字越小越靠前
         }
       },
       {
         title: '编码',
         key: 'code',
         show: true,
-        sortable: true,
+        sortable: 'custom',
         minWidth: 200,
         form: {
           order: 1,
@@ -126,7 +126,10 @@ export const crudOptions = (vm) => {
                 }
               }
             }
-          }
+          },
+          rules: [// 【可选】添加和修改时的校验规则，不配置则不校验
+            { required: true, message: '请选择父节点' }
+          ]
         },
         component: {
           valueBinding: {
@@ -142,7 +145,7 @@ export const crudOptions = (vm) => {
         title: '简称',
         key: 'shortName',
         show: true,
-        sortable: true,
+        sortable: 'custom',
         minWidth: 200,
         form: {
           order: 1
@@ -152,17 +155,24 @@ export const crudOptions = (vm) => {
         title: '排序',
         key: 'orderNum',
         show: true,
-        sortable: true,
+        sortable: 'custom',
         minWidth: 200,
         form: {
-          order: 1
+          slot: true,
+          order: 1,
+          component: {
+          },
+          rules: [// 【可选】添加和修改时的校验规则，不配置则不校验
+            { type: 'number', message: '排序必须为数字值' }
+          ]
+
         }
       },
       {
         title: '备注',
         key: 'remark',
         show: true,
-        sortable: true,
+        sortable: 'custom',
         minWidth: 200,
         form: {
           order: 1
@@ -172,7 +182,7 @@ export const crudOptions = (vm) => {
         title: 'path',
         key: 'path',
         show: true,
-        sortable: true,
+        sortable: 'custom',
         minWidth: 200,
         form: {
           order: 1,
