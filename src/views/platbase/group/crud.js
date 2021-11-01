@@ -1,4 +1,3 @@
-import { getTree, getObj } from './api'
 export const crudOptions = (vm) => {
   return {
     pageOptions: {
@@ -13,7 +12,7 @@ export const crudOptions = (vm) => {
           // 添加
           return {}
         }
-        return getObj(row.id).then(res => {
+        return vm.api.getObj(row.id).then(res => {
           return res.data
         })
       }
@@ -37,7 +36,17 @@ export const crudOptions = (vm) => {
         thin: true,
         text: null
       },
-      width: 140
+      custom: [
+        {
+          thin: true,
+          text: '',
+          type: 'warning',
+          size: 'small',
+          emit: 'selectUser',
+          icon: 'el-icon-s-flag'
+        }
+      ],
+      width: 250
     },
     columns: [
       {
@@ -58,7 +67,7 @@ export const crudOptions = (vm) => {
         form: {
           order: 1,
           rules: [// 【可选】添加和修改时的校验规则，不配置则不校验
-            { required: true, message: '请输入部门名称' }
+            { required: true, message: '请输入名称' }
           ],
           component: {
 
@@ -79,7 +88,7 @@ export const crudOptions = (vm) => {
         form: {
           order: 1,
           rules: [// 【可选】添加和修改时的校验规则，不配置则不校验
-            { required: true, message: '请输入部门编码' }
+            { required: true, message: '请输入编码' }
           ],
           component: {
             placeholder: '添加后不可修改，请注意'
@@ -119,7 +128,7 @@ export const crudOptions = (vm) => {
                     return resolve([{ name: '全部机构', id: '0' }])
                   }
                   if (node.level > 0) {
-                    getTree({ nodeId: node.data.id }).then(res => {
+                    vm.api.getTree({ nodeId: node.data.id }).then(res => {
                       resolve(res.data)
                     })
                   }

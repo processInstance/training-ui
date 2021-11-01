@@ -9,16 +9,16 @@
 </template>
 
 <script>
-import { addObj, page, putObj, delObj, getTree, treeSearch, getObj } from './api'
-import { crudOptions } from './crud'
+import { addObj, page, putObj, delObj, getTree, treeSearch, getObj } from '@/views/platbase/group/api'
+import { crudOptions } from '@/views/platbase/group/crud'
 
 export default {
-  name: 'crudGroup',
+  name: 'crudRole',
   props: {
     // 1 部门 2 角色 3 岗位 4 自定义群组
     groupType: {
       type: Number,
-      default: 1
+      default: 2
     }
   },
   data () {

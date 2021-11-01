@@ -53,3 +53,32 @@ export function treeSearch (query) {
     params: query
   })
 }
+
+export function getChildIncludedUser (query) {
+  return request({
+    url: baseUrl + '/tree/includedUser',
+    method: 'get',
+    params: query
+  })
+}
+export function getUsers (query) {
+  return request({
+    url: baseUrl + '/user',
+    method: 'get',
+    params: query
+  })
+}
+export function bindUser (param) {
+  return request({
+    url: baseUrl + '/bindUser',
+    method: 'post',
+    data: param
+  })
+}
+export function serachUserAndGroup (query) {
+  return request({
+    url: baseUrl + '/serachUserAndGroup',
+    method: 'get',
+    params: query
+  })
+}

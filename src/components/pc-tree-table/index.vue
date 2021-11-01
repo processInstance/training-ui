@@ -31,6 +31,7 @@
             ref="d2Crud"
             v-bind="_crudProps"
             v-on="_crudListeners"
+            @selectUser="handleSelectUser"
           >
 
             <div slot="header">
@@ -47,6 +48,20 @@
         </crud-container>
 
  </el-main>
+    <el-dialog title="选择用户"
+               :visible.sync="dialogUserSelectorVisible"
+               destroy-on-close
+    >
+
+      <user-selector ref="userSelector"></user-selector>
+
+      <div slot="footer"
+           class="dialog-footer">
+        <el-button type="primary"
+                   @click="updateGroupUser">确定
+        </el-button>
+      </div>
+    </el-dialog>
 
   </el-container>
 
@@ -54,6 +69,7 @@
 
 <script>
 import { d2CrudPlus } from 'd2-crud-plus'
+import { getUsers, bindUser } from '@/views/platbase/group/api'
 export default {
   name: 'pc-tree-table',
   props: {
@@ -81,7 +97,9 @@ export default {
         children: 'children',
         label: 'name'
       },
-      isExpandAll: false
+      isExpandAll: false,
+      dialogUserSelectorVisible: false,
+      currentGroupId: ''
     }
   },
   methods: {
@@ -135,6 +153,54 @@ export default {
       // 查询条件
       this.crud.searchOptions.form = { parentId: data.id }
       this.doRefresh({ from: 'treeNodeClick' })
+    },
+    handleSelectUser (event) {
+      /**
+       * 点击选择用户后，设置初始化值
+       *
+       */
+      this.currentGroupId = event.row.id
+      getUsers({ nodeId: this.currentGroupId }).then(res => {
+        const initSelectedRes = []
+        if (res.data) {
+          res.data.forEach(item => {
+            initSelectedRes.push(
+              {
+                id: item.id,
+                name: item.userName,
+                isUser: true,
+                leaf: true
+              }
+            )
+          })
+        }
+        this.dialogUserSelectorVisible = true
+        if (!this.$refs.userSelector) {
+          setTimeout(() => {
+            this.$refs.userSelector.selectedResult = initSelectedRes
+          }, 10)
+        } else {
+          this.$refs.userSelector.selectedResult = initSelectedRes
+        }
+      })
+    },
+    updateGroupUser () {
+      /**
+       * 获取选中的idlist
+       * 提交后台
+       */
+
+      const params = {
+        groupId: this.currentGroupId,
+        userIds: this.$refs.userSelector.getSelectId()
+      }
+      bindUser(params).then(res => {
+        this.$message({
+          message: '保存成功',
+          type: 'success'
+        })
+        this.dialogUserSelectorVisible = false
+      })
     }
   },
   watch: {
